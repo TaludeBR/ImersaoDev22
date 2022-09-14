@@ -1,0 +1,51 @@
+var nome = "Celso"
+
+function calcularMedia() {
+  var nB1 = document.getElementById("bim1");
+  var nota1 = nB1.value;
+  var nFinal1 = parseFloat(nota1);
+  var nB2 = document.getElementById("bim2");
+  var nota2 = nB2.value;
+  var nFinal2 = parseFloat(nota2);
+  var nB3 = document.getElementById("bim3");
+  var nota3 = nB3.value;
+  var nFinal3 = parseFloat(nota3);
+  var nB4 = document.getElementById("bim4");
+  var nota4 = nB4.value;
+  var nFinal4 = parseFloat(nota3);
+  
+  // Somar e dividir as notas
+  var notaSoma = (nFinal1 + nFinal2 + nFinal3 + nFinal4) / 4;
+  // Definir as casas decimais máx em 1
+  var notaFixada = notaSoma.toFixed(1);
+
+  // Mostrar resultado final na tela
+  var elementoNotaFixada = document.getElementById("mediaFinal");
+  var mediaFinal = "Sua média final é de " + notaFixada;
+  elementoNotaFixada.innerHTML = mediaFinal;
+  
+  //Mostrar pro aluno se ele foi aprovado ou nao
+  var elementoResultado = document.getElementById("resultado");
+  if (notaFixada < 7) {
+    elementoResultado.innerHTML =
+      "Infelizmente você voi reprovado, foque nos estudos!";
+  } else {
+    elementoResultado.innerHTML = "Parabéns, voce foi APROVADO!!";
+  }
+}
+//variáveis de nota
+//var nota1Bi = 9
+//var nota2Bi = 7
+//var nota3Bi = 10
+//var nota4Bi = 8
+//var notaFinal = (nota1Bi + nota2Bi + nota3Bi + nota4Bi) / 4
+//var notaFixada = notaFinal.toFixed(1)
+//console.log("Bem vindo " + nome);
+//if (notaFixada <=6) {
+//    console.log ("Sua média é " + notaFixada + ". Infelizmente você não atingiu a Média");
+//} else {
+//    console.log ("Sua média é " + notaFixada + ". Parabéns, você foi aprovado");
+//}
+//console.log ("Sua média é: " + notaFixada)
+//Revisão
+//Variáveis, strings, console.log, toFixed, operações matemáticas, concatenação
