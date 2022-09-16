@@ -1,0 +1,171 @@
+var carta1 = {
+  nome: "Dragão Azul",
+  imagem: "https://i.imgur.com/I8P8NnH.jpg",
+  atributos: {
+    Ataque: 48,
+    Defesa: 503,
+    Magia: 88
+  }
+};
+
+var carta2 = {
+  nome: "Dragão Branco",
+  imagem: "https://i.imgur.com/xu1Qwfk.jpg",
+  atributos: {
+    Ataque: 42,
+    Defesa: 353,
+    Magia: 72
+  }
+};
+
+var carta3 = {
+  nome: "Dragão Negro",
+  imagem: "https://i.imgur.com/ccYUVAL.jpg",
+  atributos: {
+    Ataque: 45,
+    Defesa: 389,
+    Magia: 67
+  }
+};
+
+var carta4 = {
+  nome: "Dragão Verde",
+  imagem: "https://i.imgur.com/o99RHiL.jpg",
+  atributos: {
+    Ataque: 45,
+    Defesa: 406,
+    Magia: 77
+  }
+};
+
+var carta5 = {
+  nome: "Dragão Vermelho",
+  imagem: "https://i.imgur.com/H8tqqJI.jpg",
+  atributos: {
+    Ataque: 51,
+    Defesa: 568,
+    Magia: 91
+  }
+};
+
+var cartas = [carta1, carta2, carta3, carta4, carta5];
+var cartaMaq = 0;
+var cartaJog = 0;
+
+function sortearCarta() {
+  var numCartaMaq = parseInt(Math.random() * 5);
+  cartaMaq = cartas[numCartaMaq];
+
+  var numCartaJog = parseInt(Math.random() * 5);
+  while (numCartaMaq == numCartaJog) {
+    numCartaJog = parseInt(Math.random() * 5);
+  }
+  cartaJog = cartas[numCartaJog];
+  // console.log(cartaJog);
+
+  document.getElementById("btnSortear").disabled = true;
+  document.getElementById("btnJogar").disabled = false;
+  exibirCartaJog();
+}
+
+function obtemAtributoSelecionado() {
+  var radioAtributos = document.getElementsByName("atributo");
+  for (var i = 0; i < radioAtributos.length; i++) {
+    if (radioAtributos[i].checked == true) {
+      return radioAtributos[i].value;
+    }
+  }
+}
+
+function jogar() {
+  const atributoSelecionado = obtemAtributoSelecionado();
+
+  if (!nonEmpty(atributoSelecionado)) {
+    exibeResultado(
+      "<p class='resultado-final'>É necessário selecionar um valor</p>"
+    );
+    document.getElementById("btnJogar").disabled = false;
+    return;
+  }
+
+  if (
+    cartaJog.atributos[atributoSelecionado] >
+    cartaMaq.atributos[atributoSelecionado]
+  ) {
+    exibeResultado("<p class='resultado-final'>Você venceu</p>");
+    return;
+  }
+
+  if (
+    cartaJog.atributos[atributoSelecionado] <
+    cartaMaq.atributos[atributoSelecionado]
+  ) {
+    exibeResultado("<p class='resultado-final'>Você perdeu</p>");
+    return;
+  }
+
+  exibeResultado("<p class='resultado-final'>Empate</p>");
+  // console.log(cartaMaq);
+  // // console.log(atributoSelecionado);
+  // console.log(cartaJog.atributos[atributoSelecionado]);
+}
+
+function exibirCartaJog() {
+  var divCartaJog = document.getElementById("carta-jogador");
+  divCartaJog.style.backgroundImage = `url(${cartaJog.imagem})`;
+  //divCartaJog.style.backgroundImage="url(" + cartaJog.imagem + ")"
+  var moldura =
+    '<img src="https://i.imgur.com/NA3wYF1.png" style=" width: inherit; height: inherit; position: absolute;">';
+  var tagHTML = "<div id='opcoes' class='carta-status'>";
+  var opcoesTexto = "";
+
+  for (var atributo in cartaJog.atributos) {
+    opcoesTexto +=
+      "<input type='radio' name='atributo' value='" +
+      atributo +
+      "'>" +
+      atributo +
+      " " +
+      cartaJog.atributos[atributo] +
+      "<br>";
+  }
+  var nome = `<p class="carta-subtitle">${cartaJog.nome}</p>`;
+
+  divCartaJog.innerHTML = moldura + nome + tagHTML + opcoesTexto + "</div>";
+}
+
+function exibirCartaMaq() {
+  var divCartaMaq = document.getElementById("carta-maquina");
+  divCartaMaq.style.backgroundImage = `url(${cartaMaq.imagem})`;
+  var moldura =
+    '<img src="https://i.imgur.com/NA3wYF1.png" style=" width: inherit; height: inherit; position: absolute;">';
+  var tagHTML = "<div id='opcoes' class='carta-status'>";
+  var opcoesTexto = "";
+
+  for (var atributo in cartaMaq.atributos) {
+    opcoesTexto +=
+      "<p type='text' name='atributo' value='" +
+      atributo +
+      "'>" +
+      atributo +
+      " " +
+      cartaMaq.atributos[atributo] +
+      "</p>";
+  }
+  var nome = `<p class="carta-subtitle">${cartaMaq.nome}</p>`;
+
+  divCartaMaq.innerHTML = moldura + nome + tagHTML + opcoesTexto + "</div>";
+}
+
+function nonEmpty(object) {
+  console.log({ object });
+  return object && object.length != 0;
+}
+
+function exibeResultado(html) {
+  var divResultado = document.getElementById("resultado");
+  divResultado.innerHTML = html;
+  document.getElementById("btnSortear").disabled = false;
+  document.getElementById("btnJogar").disabled = true;
+  exibirCartaMaq();
+}
