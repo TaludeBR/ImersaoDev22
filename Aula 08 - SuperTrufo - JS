@@ -48,17 +48,133 @@ var carta5 = {
   }
 };
 
-var cartas = [carta1, carta2, carta3, carta4, carta5];
+var carta6 = {
+  nome: "Dragão de Bronze",
+  imagem: "https://i.imgur.com/fhkTpRx.jpg",
+  atributos: {
+    Ataque: 48,
+    Defesa: 466,
+    Magia: 88
+  }
+};
+
+var carta7 = {
+  nome: "Dragão de Cobre",
+  imagem: "https://i.imgur.com/LLBkhXg.jpg",
+  atributos: {
+    Ataque: 45,
+    Defesa: 371,
+    Magia: 63
+  }
+};
+
+var carta8 = {
+  nome: "Dragão de Latão",
+  imagem: "https://i.imgur.com/TJgYSVA.jpg",
+  atributos: {
+    Ataque: 42,
+    Defesa: 317,
+    Magia: 56
+  }
+};
+
+var carta9 = {
+  nome: "Dragão de Ouro",
+  imagem: "https://i.imgur.com/h1Q72wP.jpg",
+  atributos: {
+    Ataque: 51,
+    Defesa: 568,
+    Magia: 71
+  }
+};
+
+var carta10 = {
+  nome: "Dragão de Prata",
+  imagem: "https://i.imgur.com/6FREtm7.jpg",
+  atributos: {
+    Ataque: 51,
+    Defesa: 509,
+    Magia: 67
+  }
+};
+
+var carta11 = {
+  nome: "Dragão de Ametista",
+  imagem: "https://i.imgur.com/jUnxECl.jpg",
+  atributos: {
+    Ataque: 45,
+    Defesa: 464,
+    Magia: 63
+  }
+};
+
+var carta12 = {
+  nome: "Dragão de Cristal",
+  imagem: "https://i.imgur.com/xoaDIWr.jpg",
+  atributos: {
+    Ataque: 39,
+    Defesa: 242,
+    Magia: 49
+  }
+};
+
+var carta13 = {
+  nome: "Dragão de Esmeralda",
+  imagem: "https://i.imgur.com/aMZcgMr.jpg",
+  atributos: {
+    Ataque: 42,
+    Defesa: 352,
+    Magia: 56
+  }
+};
+
+var carta14 = {
+  nome: "Dragão de Safira",
+  imagem: "https://i.imgur.com/ovduu1T.jpg",
+  atributos: {
+    Ataque: 45,
+    Defesa: 390,
+    Magia: 55
+  }
+};
+
+var carta15 = {
+  nome: "Dragão de Topázio",
+  imagem: "https://i.imgur.com/2NuFqTM.jpg",
+  atributos: {
+    Ataque: 36,
+    Defesa: 300,
+    Magia: 49
+  }
+};
+
+var cartas = [
+  carta1,
+  carta2,
+  carta3,
+  carta4,
+  carta5,
+  carta6,
+  carta7,
+  carta8,
+  carta9,
+  carta10,
+  carta11,
+  carta12,
+  carta13,
+  carta14,
+  carta15
+];
 var cartaMaq = 0;
 var cartaJog = 0;
 
 function sortearCarta() {
-  var numCartaMaq = parseInt(Math.random() * 5);
+  var numCartaMaq = parseInt(Math.random() * 15);
   cartaMaq = cartas[numCartaMaq];
 
-  var numCartaJog = parseInt(Math.random() * 5);
+  var numCartaJog = parseInt(Math.random() * 15);
   while (numCartaMaq == numCartaJog) {
-    numCartaJog = parseInt(Math.random() * 5);
+    numCartaJog = parseInt(Math.random() * 15);
   }
   cartaJog = cartas[numCartaJog];
   // console.log(cartaJog);
@@ -81,30 +197,31 @@ function jogar() {
   const atributoSelecionado = obtemAtributoSelecionado();
 
   if (!nonEmpty(atributoSelecionado)) {
-    exibeResultado(
+    validaAtributo(
       "<p class='resultado-final'>É necessário selecionar um valor</p>"
     );
+
     document.getElementById("btnJogar").disabled = false;
     return;
+  } else {
+    if (
+      cartaJog.atributos[atributoSelecionado] >
+      cartaMaq.atributos[atributoSelecionado]
+    ) {
+      exibeResultado("<p class='resultado-final'>Você venceu</p>");
+      return;
+    }
+
+    if (
+      cartaJog.atributos[atributoSelecionado] <
+      cartaMaq.atributos[atributoSelecionado]
+    ) {
+      exibeResultado("<p class='resultado-final'>Você perdeu</p>");
+      return;
+    }
+    exibeResultado("<p class='resultado-final'>Empate</p>");
   }
 
-  if (
-    cartaJog.atributos[atributoSelecionado] >
-    cartaMaq.atributos[atributoSelecionado]
-  ) {
-    exibeResultado("<p class='resultado-final'>Você venceu</p>");
-    return;
-  }
-
-  if (
-    cartaJog.atributos[atributoSelecionado] <
-    cartaMaq.atributos[atributoSelecionado]
-  ) {
-    exibeResultado("<p class='resultado-final'>Você perdeu</p>");
-    return;
-  }
-
-  exibeResultado("<p class='resultado-final'>Empate</p>");
   // console.log(cartaMaq);
   // // console.log(atributoSelecionado);
   // console.log(cartaJog.atributos[atributoSelecionado]);
@@ -121,13 +238,12 @@ function exibirCartaJog() {
 
   for (var atributo in cartaJog.atributos) {
     opcoesTexto +=
-      "<input type='radio' name='atributo' value='" +
+      "<input class='test' type='radio' name='atributo' value='" +
       atributo +
       "'>" +
       atributo +
       " " +
-      cartaJog.atributos[atributo] +
-      "<br>";
+      cartaJog.atributos[atributo];
   }
   var nome = `<p class="carta-subtitle">${cartaJog.nome}</p>`;
 
@@ -168,4 +284,11 @@ function exibeResultado(html) {
   document.getElementById("btnSortear").disabled = false;
   document.getElementById("btnJogar").disabled = true;
   exibirCartaMaq();
+}
+
+function validaAtributo(html) {
+  var divResultado = document.getElementById("resultado");
+  divResultado.innerHTML = html;
+  document.getElementById("btnSortear").disabled = true;
+  document.getElementById("btnJogar").disabled = false;
 }
