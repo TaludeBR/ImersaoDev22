@@ -34,7 +34,7 @@ h2 {
 
 #carta-jogador,
 #carta-maquina {
-  width: 360px;
+  width: 350px;
   height: 500px;
   overflow: auto;
   border-radius: 10px;
@@ -43,10 +43,10 @@ h2 {
   display: flex;
   align-items: flex-end;
   position: relative;
-  background-size: 350px 300px;
+  background-size: 310px 210px;
   background-repeat: no-repeat;
-  background-position-x: 5px;
-  background-position-y: 30%;
+  background-position-x: 60%;
+  background-position-y: 52%;
   border-radius: 33px;
 }
 
@@ -54,7 +54,12 @@ h2 {
   text-align: center;
 }
 
-.carta-imagem {
+.test input {
+  color: white;
+  background-color: white;
+}
+
+/* .carta-imagem {
   border: 1px solid black;
   height: 100px;
   margin: 10px;
@@ -63,7 +68,7 @@ h2 {
 .carta-imagem img {
   width: 310px;
   height: 208px;
-}
+} */
 
 .carta-status {
   height: 160px;
